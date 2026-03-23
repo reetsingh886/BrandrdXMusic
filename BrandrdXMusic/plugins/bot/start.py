@@ -20,32 +20,30 @@ from config import BANNED_USERS
 from strings import get_string
 
 
-# ✅ PRIVATE START (BUTTON SAME + NEW STYLE)
+# ✅ PRIVATE START (NO USER DP ISSUE)
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
 @LanguageStart
 async def start_pm(client, message: Message, _):
     await add_served_user(message.from_user.id)
 
-    keyboard = private_panel(_)   # ✅ SAME BUTTONS
+    keyboard = private_panel(_)
 
     await message.reply_photo(
-        photo=config.START_IMG_URL,   # ❌ DP removed
-        caption="""<blockquote><b>нєу ʙᴀʙʏ</b> {}, 🥀</blockquote>
+        photo=config.START_IMG_URL,
+        caption=f"""<blockquote><b>нєу ʙᴀʙʏ</b> {message.from_user.first_name}, 🥀</blockquote>
 
 <blockquote expandable>
-<b>๏ ᴛʜɪs ɪs {} : ғᴀsᴛ & ᴘᴏᴡᴇʀғᴜʟ ᴛɢ ᴍᴜsɪᴄ ʙᴏᴛ.</b>
+<b>๏ ᴛʜɪs ɪs {app.mention} : ғᴀsᴛ & ᴘᴏᴡᴇʀғᴜʟ ᴛɢ ᴍᴜsɪᴄ ʙᴏᴛ.</b>
 <b>๏ sᴍᴏᴏᴛʜ ʙᴇᴀᴛs • sᴛᴀʙʟᴇ & sᴇᴀᴍʟᴇss ᴍᴜsɪᴄ ғʟᴏᴡ.</b>
 <b>๏ ɴᴇᴡ ᴠᴇʀsɪᴏɴ ᴡɪᴛʜ sᴜᴘᴇʀ ғᴀsᴛ ʏᴏᴜᴛᴜʙᴇ ᴀᴘɪ ʙᴀsᴇᴅ.</b>
 
 <b>•── ⋅ ⋅ ⋅ ────── ⋅ ⋅ ────── ⋅ ⋅ ⋅ ──•</b>
 
-<b>๏ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴ ᴛᴏ ɢᴇᴛ ɪɴғᴏʀᴍᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ᴍʏ ᴍᴏᴅᴜʟᴇs ᴀɴᴅ ᴄᴏᴍᴍᴀɴᴅs.</b>
-</blockquote>""".format(
-            message.from_user.mention,
-            app.mention
-        ),
+<b>๏ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʜᴇʟᴘ ʙᴜᴛᴛᴏɴ ᴛᴏ ɢᴇᴛ ɪɴғᴏʀᴍᴀᴛɪᴏɴ.</b>
+</blockquote>""",
         reply_markup=InlineKeyboardMarkup(keyboard),
-        parse_mode="html"
+        parse_mode="html",
+        disable_web_page_preview=True
     )
 
 
